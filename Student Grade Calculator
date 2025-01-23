@@ -1,0 +1,20 @@
+import java.util.*;
+class SumAverageRunningInt {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter Lower Bound");
+        int l=sc.nextInt();
+        System.out.print("Enter Upper Bound");
+        int u=sc.nextInt();
+        double average;
+        double den;
+        double sum=0;
+        for( int i=l;i<=u;i++){
+        sum=sum+i;}
+
+        den=u-l+1;
+        System.out.println("The sum of integers from " + l + " to " + u + " is: " + sum);
+        System.out.printf("The average of integers from " + l + " to " + u + " is: " + "%.2f", sum/den);
+        sc.close();
+    }
+}
