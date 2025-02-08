@@ -22,7 +22,7 @@ public class StudentManagementSystem extends Application {
         VBox vbox = new VBox(10);
         vbox.setPadding(new Insets(10));
 
-        // Input fields
+        
         TextField idField = new TextField();
         idField.setPromptText("Student ID");
         TextField nameField = new TextField();
@@ -30,17 +30,17 @@ public class StudentManagementSystem extends Application {
         TextField gradeField = new TextField();
         gradeField.setPromptText("Student Grade");
 
-        // Buttons
+        
         Button addButton = new Button("Add Student");
         Button removeButton = new Button("Remove Student");
         Button searchButton = new Button("Search Student");
         Button displayButton = new Button("Display All Students");
 
-        // TextArea for displaying students
+        
         TextArea displayArea = new TextArea();
         displayArea.setEditable(false);
 
-        // Add Student button action
+        
         addButton.setOnAction(e -> {
             String id = idField.getText();
             String name = nameField.getText();
@@ -55,7 +55,7 @@ public class StudentManagementSystem extends Application {
             }
         });
 
-        // Remove Student button action
+        
         removeButton.setOnAction(e -> {
             String id = idField.getText();
 
@@ -79,7 +79,7 @@ public class StudentManagementSystem extends Application {
             }
         });
 
-        // Search Student button action
+        
         searchButton.setOnAction(e -> {
             String id = idField.getText();
 
@@ -96,7 +96,7 @@ public class StudentManagementSystem extends Application {
             }
         });
 
-        // Display All Students button action
+        
         displayButton.setOnAction(e -> {
             if (students.isEmpty()) {
                 displayArea.setText("No students available.");
@@ -129,4 +129,32 @@ public class StudentManagementSystem extends Application {
         }
     }
 }
+//Student Interface
+public class Student {
+    private String id;
+    private String name;
+    private String grade;
 
+    public Student(String id, String name, String grade) {
+        this.id = id;
+        this.name = name;
+        this.grade = grade;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    @Override
+    public String toString() {
+        return "ID: " + id + ", Name: " + name + ", Grade: " + grade;
+    }
+}
