@@ -1,0 +1,132 @@
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class StudentManagementSystem extends Application {
+    private List<Student> students = new ArrayList<>();
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        primaryStage.setTitle("Student Management System");
+
+        VBox vbox = new VBox(10);
+        vbox.setPadding(new Insets(10));
+
+        // Input fields
+        TextField idField = new TextField();
+        idField.setPromptText("Student ID");
+        TextField nameField = new TextField();
+        nameField.setPromptText("Student Name");
+        TextField gradeField = new TextField();
+        gradeField.setPromptText("Student Grade");
+
+        // Buttons
+        Button addButton = new Button("Add Student");
+        Button removeButton = new Button("Remove Student");
+        Button searchButton = new Button("Search Student");
+        Button displayButton = new Button("Display All Students");
+
+        // TextArea for displaying students
+        TextArea displayArea = new TextArea();
+        displayArea.setEditable(false);
+
+        // Add Student button action
+        addButton.setOnAction(e -> {
+            String id = idField.getText();
+            String name = nameField.getText();
+            String grade = gradeField.getText();
+
+            if (id.isEmpty() || name.isEmpty() || grade.isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Error", "All fields are required.");
+            } else {
+                students.add(new Student(id, name, grade));
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Student added successfully.");
+                clearFields(idField, nameField, gradeField);
+            }
+        });
+
+        // Remove Student button action
+        removeButton.setOnAction(e -> {
+            String id = idField.getText();
+
+            if (id.isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Error", "Student ID is required.");
+            } else {
+                Student studentToRemove = null;
+                for (Student student : students) {
+                    if (student.getId().equals(id)) {
+                        studentToRemove = student;
+                        break;
+                    }
+                }
+
+                if (studentToRemove != null) {
+                    students.remove(studentToRemove);
+                    showAlert(Alert.AlertType.INFORMATION, "Success", "Student removed successfully.");
+                } else {
+                    showAlert(Alert.AlertType.ERROR, "Error", "Student not found.");
+                }
+            }
+        });
+
+        // Search Student button action
+        searchButton.setOnAction(e -> {
+            String id = idField.getText();
+
+            if (id.isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Error", "Student ID is required.");
+            } else {
+                for (Student student : students) {
+                    if (student.getId().equals(id)) {
+                        displayArea.setText(student.toString());
+                        return;
+                    }
+                }
+                showAlert(Alert.AlertType.ERROR, "Error", "Student not found.");
+            }
+        });
+
+        // Display All Students button action
+        displayButton.setOnAction(e -> {
+            if (students.isEmpty()) {
+                displayArea.setText("No students available.");
+            } else {
+                StringBuilder sb = new StringBuilder();
+                for (Student student : students) {
+                    sb.append(student).append("\n");
+                }
+                displayArea.setText(sb.toString());
+            }
+        });
+
+        vbox.getChildren().addAll(idField, nameField, gradeField, addButton, removeButton, searchButton, displayButton, displayArea);
+
+        Scene scene = new Scene(vbox, 400, 400);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void clearFields(TextField... fields) {
+        for (TextField field : fields) {
+            field.clear();
+        }
+    }
+}
+
