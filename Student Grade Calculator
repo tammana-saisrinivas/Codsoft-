@@ -1,20 +1,43 @@
 import java.util.*;
-class SumAverageRunningInt {
+class StudentGradeCalc {
     public static void main(String[] args) {
-        Scanner sc=new Scanner(System.in);
-        System.out.println("Enter Lower Bound");
-        int l=sc.nextInt();
-        System.out.print("Enter Upper Bound");
-        int u=sc.nextInt();
-        double average;
-        double den;
-        double sum=0;
-        for( int i=l;i<=u;i++){
-        sum=sum+i;}
+        Scanner sc = new Scanner(System.in);
+        
+        
+        System.out.println("Enter the number of subjects:");
+        int numSubj = sc.nextInt();
+        
+        
+        double totalMarks = 0;
+        
+    
+        for (int i = 1; i <= numSubj; i++) {
+            System.out.print("Enter marks for subject " + i + ": ");
+            double marks = sc.nextDouble();
+            totalMarks += marks;
+        }
 
-        den=u-l+1;
-        System.out.println("The sum of integers from " + l + " to " + u + " is: " + sum);
-        System.out.printf("The average of integers from " + l + " to " + u + " is: " + "%.2f", sum/den);
+        double avg = totalMarks / numSubjects;
+        
+        
+        System.out.println("Total marks: " + totalMarks);
+        System.out.printf("Average marks: %.2f\n", average);
+         
+        if (average >= 90) {
+            System.out.println("A");
+        } else if (average >= 80) {
+           System.out.println("B");
+        } else if (average >= 70) {
+            System.out.println("C");
+        } else if (average >= 60) {
+            System.out.println("D");
+        } else {
+            System.out.println("F");
+        }
+        
+        System.out.println("Grade: " + grade);
+
         sc.close();
     }
 }
+
